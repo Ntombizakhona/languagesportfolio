@@ -1,0 +1,135 @@
+{
+  "personal_info": {
+    "name": "Your Name",
+    "title": "Cloud Developer in Training",
+    "bio": "Learning essential languages for cloud computing",
+    "email": "your.email@example.com",
+    "github": "https://github.com/yourusername",
+    "linkedin": "https://linkedin.com/in/yourprofile"
+  },
+  "skills": [
+    {
+      "name": "English",
+      "level": 100,
+      "category": "Communication",
+      "status": "Completed"
+    },
+    {
+      "name": "Mathematics",
+      "level": 100,
+      "category": "Logic",
+      "status": "Completed"
+    },
+    {
+      "name": "HTML",
+      "level": 100,
+      "category": "Markup",
+      "status": "Completed"
+    },
+    {
+      "name": "CSS",
+      "level": 100,
+      "category": "Styling",
+      "status": "Completed"
+    },
+    {
+      "name": "JavaScript",
+      "level": 75,
+      "category": "Programming",
+      "status": "Learning"
+    },
+    {
+      "name": "Python",
+      "level": 75,
+      "category": "Programming",
+      "status": "Learning"
+    },
+    {
+      "name": "Java",
+      "level": 0,
+      "category": "Programming",
+      "status": "Upcoming"
+    },
+    {
+      "name": "Linux",
+      "level": 0,
+      "category": "Systems",
+      "status": "Upcoming"
+    },
+    {
+      "name": "SQL",
+      "level": 0,
+      "category": "Database",
+      "status": "Upcoming"
+    },
+    {
+      "name": "Kubernetes",
+      "level": 0,
+      "category": "DevOps",
+      "status": "Upcoming"
+    },
+    {
+      "name": "Git",
+      "level": 0,
+      "category": "Version Control",
+      "status": "Upcoming"
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "name": "Portfolio Website",
+      "description": "Interactive portfolio built while learning cloud languages",
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Python",
+        "Flask"
+      ],
+      "status": "In Progress",
+      "github_url": "",
+      "live_url": "",
+      "created_at": "2026-02-01T10:20:10.486131"
+    },
+    {
+      "id": 2,
+      "name": "AWS Cost Calculator",
+      "description": "Calculate cloud costs",
+      "technologies": [
+        "Python",
+        "JavaScript",
+        "HTML"
+      ],
+      "status": "In Progress",
+      "github_url": "",
+      "live_url": "",
+      "created_at": "2026-02-01T11:19:40.988866"
+    }
+  ],
+  "learning_log": [
+    {
+      "date": "2026-02-01T10:20:10.486195",
+      "day": 6,
+      "topic": "Python Basics",
+      "entry": "Started learning Python for backend development and cloud automation"
+    },
+    {
+      "date": "2026-02-01T11:20:59.124074",
+      "day": 2,
+      "topic": "Python",
+      "entry": "Completed Python API testing"
+    }
+  ],
+  "contact_messages": [
+    {
+      "id": 1,
+      "name": "Test User",
+      "email": "test@example.com",
+      "subject": "No Subject",
+      "message": "Hello from the API test!",
+      "timestamp": "2026-02-01T11:19:57.134471",
+      "read": false
+    }
+  ]
+}
