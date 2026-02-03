@@ -575,4 +575,40 @@ Java: 0% 📅
 
 Progress: 7/11 skills (63.6% of foundational languages!)
 
+## Day 8: Linux - The Cloud Operating System
+
+### What I Learned:
+- Linux is the foundation of cloud computing (90%+ of cloud infrastructure)
+- Command line navigation and file operations
+- File permissions and security management
+- Process and service management with systemd
+- Package management with apt
+- Firewall configuration with UFW
+- Docker containers for application deployment
+- Shell scripting for automation
+
+### Portfolio Deployment Accomplished:
+- Launched Ubuntu EC2 instance on AWS
+- Configured Nginx as reverse proxy
+- Deployed Flask backend as systemd service
+- Connected frontend (HTML/CSS/JS) with Python API
+- Created automated deployment script
+- Secured server with UFW firewall
+
+### Linux Commands Mastered:
+- Navigation: pwd, ls, cd, mkdir, rm
+- Files: cat, less, head, tail, grep
+- Permissions: chmod, chown
+- Processes: ps, top, kill, systemctl
+- Packages: apt update, apt install
+- Network: ip addr, curl, ssh, scp
+- Docker: run, build, ps, logs
+
+### My Portfolio is Now:
+- ✅ Live on the internet!
+- ✅ Running on Ubuntu 22.04 LTS
+- ✅ Served by Nginx web server
+- ✅ Powered by Python Flask backend
+- ✅ Deployed with automated scripts
+
 
