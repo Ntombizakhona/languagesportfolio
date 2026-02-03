@@ -519,4 +519,60 @@ Git: 0% 📅
 
 Progress: 6/11 skills (54.5% of foundational languages!)
 
+## Day 7: Git - Version Control and Deployment
+### Date: [Today's Date]
+### What I Learned:
+
+#### Git Fundamentals:
+- **Repository**: A project folder tracked by Git
+- **Commit**: A snapshot of code at a point in time
+- **Branch**: Independent line of development
+- **Remote**: Server copy of repository (GitHub)
+- **The Three States**: Working Directory → Staging Area → Repository
+
+#### Essential Commands Mastered:
+```bash
+git init          # Start tracking a project
+git status        # Check what's changed
+git add .         # Stage all changes
+git commit -m ""  # Create a snapshot
+git log --oneline # View history
+git branch        # List branches
+git checkout -b   # Create and switch branch
+git merge         # Combine branches
+git remote add    # Connect to GitHub
+git push          # Upload to GitHub
+git pull          # Download from GitHub
+git clone         # Copy a repository
+
+Aha! Moments:
+💡 Git is like a time machine, I can go back to any point!
+💡 Commits are cheap, commit often, with good messages
+💡 Branches let me experiment without fear of breaking things
+💡 GitHub Pages makes deployment FREE and automatic
+💡 Every cloud platform uses Git, this skill transfers everywhere
+
+Git Workflow Practiced:
+Check status: git status
+Stage changes: git add .
+Commit with message: git commit -m "Description"
+Push to remote: git push
+Create branches for features: git checkout -b feature/name
+Merge when complete: git merge feature/name
+
+Skills Progress:
+English: 100% ✅
+Mathematics: 100% ✅
+HTML: 100% ✅
+CSS: 100% ✅
+JavaScript: 75% ✅
+Python: 75% ✅
+Git: 75% ✅ (fundamentals + deployment mastered!)
+Linux: 0% 📅
+SQL: 0% 📅
+Kubernetes: 0% 📅
+Java: 0% 📅
+
+Progress: 7/11 skills (63.6% of foundational languages!)
+
 

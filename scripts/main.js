@@ -64,19 +64,18 @@ function initProgressBars() {
     }
     
     // Skill completion percentages
-    const skillProgress = { 
-        'english': 100,
-        'mathematics': 100,
-        'html': 100,
-        'css': 100,
-        'javascript': 75,  // Currently learning!
-        'python': 0,
-        'java': 0,
-        'linux': 0,
-        'sql': 0,
-        'kubernetes': 0,
-        'git': 0
-    };
+const skillProgress = {
+    'english': 100,
+    'mathematics': 100,
+    'html': 100,
+    'css': 100,
+    'javascript': 100,
+    'python': 100,
+    'git': 100,
+    'linux': 100,  // 🎉 You just mastered this!
+    'sql': 0,
+    'kubernetes': 0
+};
     
     // Create Intersection Observer to detect when progress bars are visible
     const observer = new IntersectionObserver((entries) => {

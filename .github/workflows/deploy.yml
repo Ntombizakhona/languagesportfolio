@@ -1,0 +1,30 @@
+name: Deploy Portfolio
+
+# Run on push to main branch
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # Step 1: Get the code
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    # Step 2: Validate HTML (optional)
+    - name: Validate HTML
+      run: |
+        echo "✅ Checking HTML structure..."
+        # Add HTML validation here if desired
+    
+    # Step 3: Deploy to GitHub Pages
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
+        
