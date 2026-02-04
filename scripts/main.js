@@ -72,8 +72,8 @@ const skillProgress = {
     'javascript': 100,
     'python': 100,
     'git': 100,
-    'linux': 100,  // 🎉 You just mastered this!
-    'sql': 0,
+    'linux': 100,
+    'sql': 100,  // 🎉 You just mastered this!
     'kubernetes': 0
 };
     
