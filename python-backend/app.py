@@ -19,6 +19,13 @@ from flask_cors import CORS
 from datetime import datetime
 from typing import Tuple, Any
 import json
+import mysql.connector
+from mysql.connector import pooling
+import os
+
+# app.py
+app = Flask(__name__)
+CORS(app)
 
 # Import our portfolio manager
 from portfolio_manager import PortfolioManager
@@ -769,3 +776,174 @@ if __name__ == '__main__':
     print("=" * 60 + "\n")
     
     app.run(debug=True, host='0.0.0.0', port=5000)
+
+# Database connection pool
+db_config = {
+    'host': 'localhost',
+    'user': 'portfolio_app',
+    'password': os.environ.get('DB_PASSWORD', 'your_secure_password'),
+    'database': 'portfolio_db',
+    'pool_name': 'portfolio_pool',
+    'pool_size': 5
+}
+
+connection_pool = pooling.MySQLConnectionPool(**db_config)
+
+def get_db_connection():
+    return connection_pool.get_connection()
+
+# Contact form endpoint
+@app.route('/api/contact', methods=['POST'])
+def submit_contact():
+    try:
+        data = request.json
+        
+        # Validate required fields
+        if not all(key in data for key in ['name', 'email', 'message']):
+            return jsonify({'error': 'Missing required fields'}), 400
+        
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        query = """
+            INSERT INTO contacts (name, email, subject, message, ip_address)
+            VALUES (%s, %s, %s, %s, %s)
+        """
+        cursor.execute(query, (
+            data['name'],
+            data['email'],
+            data.get('subject', ''),
+            data['message'],
+            request.remote_addr
+        ))
+        
+        conn.commit()
+        cursor.close()
+        conn.close()
+        
+        return jsonify({
+            'success': True,
+            'message': 'Thank you! Your message has been received.'
+        }), 201
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+# Get all contacts (admin only - add authentication in production!)
+@app.route('/api/contacts', methods=['GET'])
+def get_contacts():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        
+        cursor.execute("""
+            SELECT id, name, email, subject, message, created_at, is_read
+            FROM contacts
+            ORDER BY created_at DESC
+            LIMIT 50
+        """)
+        
+        contacts = cursor.fetchall()
+        
+        # Convert datetime to string for JSON
+        for contact in contacts:
+            contact['created_at'] = contact['created_at'].isoformat()
+        
+        cursor.close()
+        conn.close()
+        
+        return jsonify(contacts)
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+# Track page view
+@app.route('/api/pageview', methods=['POST'])
+def track_pageview():
+    try:
+        data = request.json
+        
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        query = """
+            INSERT INTO page_views (page_path, referrer, user_agent, ip_address)
+            VALUES (%s, %s, %s, %s)
+        """
+        cursor.execute(query, (
+            data.get('path', '/'),
+            data.get('referrer', ''),
+            request.headers.get('User-Agent', ''),
+            request.remote_addr
+        ))
+        
+        conn.commit()
+        cursor.close()
+        conn.close()
+        
+        return jsonify({'success': True}), 201
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+# Analytics endpoint
+@app.route('/api/analytics', methods=['GET'])
+def get_analytics():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        
+        # Total views last 7 days
+        cursor.execute("""
+            SELECT 
+                DATE(viewed_at) AS date,
+                COUNT(*) AS views
+            FROM page_views
+            WHERE viewed_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+            GROUP BY DATE(viewed_at)
+            ORDER BY date
+        """)
+        daily_views = cursor.fetchall()
+        
+        # Top pages
+        cursor.execute("""
+            SELECT page_path, COUNT(*) AS views
+            FROM page_views
+            WHERE viewed_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+            GROUP BY page_path
+            ORDER BY views DESC
+            LIMIT 10
+        """)
+        top_pages = cursor.fetchall()
+        
+        cursor.close()
+        conn.close()
+        
+        # Convert dates for JSON
+        for row in daily_views:
+            row['date'] = row['date'].isoformat()
+        
+        return jsonify({
+            'daily_views': daily_views,
+            'top_pages': top_pages
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+# Health check
+@app.route('/api/health', methods=['GET'])
+def health_check():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT 1")
+        cursor.fetchone()
+        cursor.close()
+        conn.close()
+        return jsonify({'status': 'healthy', 'database': 'connected'})
+    except Exception as e:
+        return jsonify({'status': 'unhealthy', 'error': str(e)}), 500
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=False)

@@ -814,3 +814,74 @@ document.addEventListener('DOMContentLoaded', function() {
     // Try to connect to Python backend
     initializeWithAPI();
 });
+
+
+// Contact form submission
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            subject: document.getElementById('subject').value,
+            message: document.getElementById('message').value
+        };
+        
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok) {
+                showNotification('success', result.message);
+                contactForm.reset();
+            } else {
+                showNotification('error', result.error || 'Something went wrong');
+            }
+        } catch (error) {
+            showNotification('error', 'Failed to send message. Please try again.');
+        }
+    });
+}
+
+// Track page views
+async function trackPageView() {
+    try {
+        await fetch('/api/pageview', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                path: window.location.pathname,
+                referrer: document.referrer
+            })
+        });
+    } catch (error) {
+        console.log('Analytics tracking failed:', error);
+    }
+}
+
+// Track on page load
+document.addEventListener('DOMContentLoaded', trackPageView);
+
+// Notification helper
+function showNotification(type, message) {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.classList.add('fade-out');
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
