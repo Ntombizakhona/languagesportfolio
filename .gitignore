@@ -23,3 +23,13 @@ dist/
 build/
 *.min.js
 *.min.css
+
+java/health-check/classes/
+java/health-check/*.jar
+java/insights/target/
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+backend/data/

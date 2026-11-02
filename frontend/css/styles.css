@@ -1,0 +1,754 @@
+/* ===================================
+   1. RESET AND BASE STYLES
+   =================================== */
+
+/* Box model fix + reset margins/padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Root variables (color scheme) */
+:root {
+    /* Primary colors */
+    --primary-dark: #2c3e50;
+    --primary-light: #ecf0f1;
+    
+    /* Accent colors */
+    --accent-blue: #3498db;
+    --accent-blue-dark: #2980b9;
+    --accent-purple: #9b59b6;
+    --accent-green: #27ae60;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-button: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-progress: linear-gradient(90deg, #28a745, #20c997);
+    
+    /* Neutral colors */
+    --text-dark: #333333;
+    --text-medium: #666666;
+    --text-light: #999999;
+    --background: #ffffff;
+    --background-alt: #f8f9fa;
+    --border-color: #e9ecef;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 5px rgba(0,0,0,0.1);
+    --shadow-md: 0 5px 15px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 30px rgba(0,0,0,0.15);
+    
+    /* Spacing */
+    --spacing-xs: 10px;
+    --spacing-sm: 20px;
+    --spacing-md: 30px;
+    --spacing-lg: 60px;
+    --spacing-xl: 100px;
+}
+
+/* Body base styles */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--background);
+    font-size: 16px;
+}
+
+/* Smooth scrolling for anchor links */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Remove list styling */
+ul {
+    list-style: none;
+}
+
+/* Image defaults */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ===================================
+   2. TYPOGRAPHY
+   =================================== */
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--primary-dark);
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+}
+
+p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: var(--text-medium);
+}
+
+a {
+    color: var(--accent-blue);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+a:hover {
+    color: var(--accent-blue-dark);
+}
+
+strong {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* ===================================
+   3. HEADER & NAVIGATION
+   =================================== */
+
+header {
+    background-color: var(--primary-dark);
+    color: white;
+    padding: 1rem 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: var(--shadow-md);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-sm);
+}
+
+nav h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: white;
+    margin: 0;
+}
+
+nav p {
+    font-size: 0.9rem;
+    color: var(--primary-light);
+    margin: 0;
+}
+
+nav ul {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+nav a {
+    color: white;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ===================================
+   4. MAIN CONTENT
+   =================================== */
+
+main {
+    margin-top: 80px; /* Account for fixed header */
+}
+
+section {
+    padding: var(--spacing-lg) var(--spacing-sm);
+}
+
+/* Alternating section backgrounds */
+section:nth-child(even) {
+    background-color: var(--background-alt);
+}
+
+/* ===================================
+   5. HERO SECTION
+   =================================== */
+
+#hero {
+    background: var(--gradient-hero);
+    color: white;
+    text-align: center;
+    padding: var(--spacing-xl) var(--spacing-sm);
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: var(--spacing-sm);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#hero p {
+    font-size: 1.3rem;
+    max-width: 600px;
+    margin: 0 auto var(--spacing-md);
+    color: rgba(255, 255, 255, 0.95);
+}
+
+#hero a {
+    display: inline-block;
+    background: white;
+    color: var(--primary-dark);
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#hero a:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ===================================
+   6. ABOUT SECTION
+   =================================== */
+
+#about {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#about h2 {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-md);
+}
+
+#about img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin: 0 auto var(--spacing-sm);
+    border: 5px solid var(--accent-blue);
+    box-shadow: var(--shadow-md);
+}
+
+#about p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: var(--spacing-sm);
+    text-align: center;
+}
+
+/* ===================================
+   7. SKILLS SECTION
+   =================================== */
+
+#skills {
+    background-color: var(--background-alt);
+}
+
+#skills h2 {
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
+
+#skills > p {
+    text-align: center;
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto var(--spacing-lg);
+}
+
+.skill-list {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    gap: var(--spacing-md);
+}
+
+.skill-item {
+    background: white;
+    padding: var(--spacing-md);
+    border-radius: 10px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.skill-item h3 {
+    color: var(--primary-dark);
+    margin-bottom: var(--spacing-xs);
+    font-size: 1.4rem;
+}
+
+.skill-item p {
+    color: var(--text-medium);
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.skill-item strong {
+    color: var(--accent-green);
+    font-weight: 600;
+}
+
+/* Progress Bar */
+.progress-bar {
+    background-color: var(--border-color);
+    border-radius: 10px;
+    height: 25px;
+    overflow: hidden;
+    margin-bottom: var(--spacing-xs);
+}
+
+.progress {
+    background: var(--gradient-progress);
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 0.85rem;
+    transition: width 1s ease-in-out;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ===================================
+   8. PROJECTS SECTION
+   =================================== */
+
+#projects h2 {
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
+
+#projects > p {
+    text-align: center;
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto var(--spacing-lg);
+}
+
+.project-list {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    gap: var(--spacing-md);
+}
+
+.project {
+    background: white;
+    padding: var(--spacing-md);
+    border-radius: 10px;
+    box-shadow: var(--shadow-sm);
+    border-left: 4px solid var(--accent-blue);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project:hover {
+    transform: translateX(5px);
+    box-shadow: var(--shadow-md);
+}
+
+.project h3 {
+    color: var(--primary-dark);
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.project p {
+    color: var(--text-medium);
+    margin-bottom: var(--spacing-xs);
+}
+
+.project ul {
+    list-style: disc;
+    margin-left: 20px;
+    color: var(--text-medium);
+}
+
+.project ul li {
+    margin-bottom: 5px;
+}
+
+/* ===================================
+   9. CONTACT SECTION
+   =================================== */
+
+#contact {
+    background-color: var(--background-alt);
+    text-align: center;
+}
+
+#contact h2 {
+    margin-bottom: var(--spacing-md);
+}
+
+#contact > p {
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto var(--spacing-lg);
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto var(--spacing-lg);
+    background: white;
+    padding: var(--spacing-lg) var(--spacing-md);
+    border-radius: 10px;
+    box-shadow: var(--shadow-md);
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: var(--spacing-sm);
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+button {
+    background: var(--gradient-button);
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+form p {
+    margin-top: var(--spacing-sm);
+    font-size: 0.9rem;
+    color: var(--text-light);
+    text-align: center;
+}
+
+/* Contact info links */
+.contact-info {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.contact-info h3 {
+    margin-bottom: var(--spacing-sm);
+}
+
+.contact-info ul {
+    list-style: none;
+}
+
+.contact-info li {
+    margin-bottom: var(--spacing-xs);
+    font-size: 1.1rem;
+}
+
+.contact-info a {
+    color: var(--accent-blue);
+    font-weight: 500;
+}
+
+/* ===================================
+   10. FOOTER
+   =================================== */
+
+footer {
+    background-color: var(--primary-dark);
+    color: white;
+    text-align: center;
+    padding: var(--spacing-md) var(--spacing-sm);
+}
+
+footer p {
+    margin-bottom: var(--spacing-xs);
+    color: var(--primary-light);
+}
+
+footer a {
+    color: white;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--accent-blue);
+}
+
+footer small {
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+/* ===================================
+   11. RESPONSIVE DESIGN
+   =================================== */
+
+/* Tablet (768px and up) */
+@media (min-width: 768px) {
+    /* Typography scaling */
+    h1 {
+        font-size: 3.5rem;
+    }
+    
+    h2 {
+        font-size: 2.75rem;
+    }
+    
+    /* Skills grid - 2 columns */
+    .skill-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Hero adjustments */
+    #hero h1 {
+        font-size: 3.5rem;
+    }
+}
+
+/* Desktop (1024px and up) */
+@media (min-width: 1024px) {
+    /* Larger typography */
+    h1 {
+        font-size: 4rem;
+    }
+    
+    #hero h1 {
+        font-size: 4rem;
+    }
+    
+    /* Projects grid - 2 columns */
+    .project-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile (below 768px) */
+@media (max-width: 767px) {
+    /* Navigation stacking */
+    nav {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-sm);
+    }
+    
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    /* Adjust main margin for taller mobile header */
+    main {
+        margin-top: 140px;
+    }
+    
+    /* Smaller hero */
+    #hero {
+        padding: var(--spacing-lg) var(--spacing-sm);
+        min-height: 400px;
+    }
+    
+    #hero h1 {
+        font-size: 2rem;
+    }
+    
+    #hero p {
+        font-size: 1.1rem;
+    }
+    
+    /* Section title sizing */
+    section h2 {
+        font-size: 2rem;
+    }
+    
+    /* Form padding */
+    form {
+        padding: var(--spacing-md) var(--spacing-sm);
+    }
+}
+
+/* Very small mobile (below 480px) */
+@media (max-width: 479px) {
+    /* Even smaller typography */
+    #hero h1 {
+        font-size: 1.75rem;
+    }
+    
+    section h2 {
+        font-size: 1.75rem;
+    }
+    
+    /* Stack navigation vertically */
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    nav a {
+        display: block;
+        text-align: center;
+    }
+    
+    /* Further increase main margin */
+    main {
+        margin-top: 200px;
+    }
+}
+
+/* ===================================
+   12. UTILITY CLASSES
+   =================================== */
+
+.text-center {
+    text-align: center;
+}
+
+.mt-1 { margin-top: var(--spacing-xs); }
+.mt-2 { margin-top: var(--spacing-sm); }
+.mt-3 { margin-top: var(--spacing-md); }
+.mt-4 { margin-top: var(--spacing-lg); }
+.mb-1 { margin-bottom: var(--spacing-xs); }
+.mb-2 { margin-bottom: var(--spacing-sm); }
+.mb-3 { margin-bottom: var(--spacing-md); }
+.mb-4 { margin-bottom: var(--spacing-lg); }
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-sm);
+}
+
+/* ===================================
+   JAVASCRIPT ANIMATION SUPPORT
+   =================================== */
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Form message animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+/* Progress bar animation */
+.progress {
+    transition: width 0.3s ease;
+}
+
+/* Skill items fade-in (controlled by JavaScript) */
+.skill-item {
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Project hover enhancement */
+.project {
+    transition: all 0.3s ease;
+}
+
+/* Scroll-to-top button hover (additional styles) */
+.scroll-to-top:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+/* Form input focus states */
+input:focus, textarea:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Error state for inputs */
+input.error, textarea.error {
+    border-color: #e74c3c;
+}
