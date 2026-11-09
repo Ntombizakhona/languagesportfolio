@@ -7,14 +7,16 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ Portfolio JavaScript loaded successfully!');
     
-    // Initialize all features
+    // Initialize all features. Set each one up only here: calling these again
+    // elsewhere adds duplicate buttons and duplicate form submit handlers.
     initSmoothScrolling();
-    initProgressBars();
-    initContactForm();
     initSkillsAnimation();
     initProjectHoverEffects();
     initMobileMenu();
     initScrollToTop();
+    
+    // Skills and the contact form depend on whether the Python backend is reachable
+    initializeWithAPI();
     
     console.log('✅ All interactive features initialized!');
 });
@@ -127,45 +129,9 @@ function animateProgressBar(progressBar, skillName, skillProgress) {
    3. CONTACT FORM VALIDATION
    =================================== */
 
-function initContactForm() {
-    const form = document.querySelector('form');
-    
-    if (!form) {
-        console.log('⚠️ No contact form found');
-        return;
-    }
-    
-    form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevent actual form submission
-        
-        // Get form data
-        const formData = new FormData(form);
-        const name = formData.get('name');
-        const email = formData.get('email');
-        const subject = formData.get('subject');
-        const message = formData.get('message');
-        
-        // Validate form
-        const errors = validateForm(name, email, message);
-        
-        if (errors.length > 0) {
-            // Show errors
-            showFormMessage(errors.join('<br>'), 'error');
-            return;
-        }
-        
-        // Simulate successful submission
-        console.log('📧 Form submitted:', { name, email, subject, message });
-        showFormMessage(
-            `Thank you, ${name}! Your message has been received. I'll get back to you at ${email} soon.`,
-            'success'
-        );
-        
-        // Reset form
-        form.reset();
-    });
-    
-    // Real-time email validation
+// Real-time email check for the contact form. The form's submit handler is in
+// initContactFormWithAPI, so this function doesn't add another one.
+function initEmailValidation() {
     const emailInput = document.querySelector('#email');
     if (emailInput) {
         emailInput.addEventListener('blur', function() {
@@ -181,24 +147,6 @@ function initContactForm() {
     }
     
     console.log('✅ Contact form validation enabled');
-}
-
-function validateForm(name, email, message) {
-    const errors = [];
-    
-    if (!name || name.trim().length < 2) {
-        errors.push('❌ Please enter your name (at least 2 characters)');
-    }
-    
-    if (!email || !isValidEmail(email)) {
-        errors.push('❌ Please enter a valid email address');
-    }
-    
-    if (!message || message.trim().length < 10) {
-        errors.push('❌ Please enter a message (at least 10 characters)');
-    }
-    
-    return errors;
 }
 
 function isValidEmail(email) {
@@ -511,14 +459,6 @@ async function submitContactForm(name, email, message) {
     }
 }
 
-// Call on page load
-document.addEventListener('DOMContentLoaded', function() {
-    // ... existing code ...
-    
-    // Load skills from Python backend
-    loadSkillsFromAPI();
-});
-
 /* ===================================
    API CONFIGURATION
    =================================== */
@@ -639,7 +579,7 @@ async function submitContactFormToAPI(formData) {
     }
 }
 
-// Update initContactForm to use Python backend
+// The contact form's only submit handler. It's set up only when the Python backend is reachable.
 function initContactFormWithAPI() {
     const form = document.querySelector('form');
     
@@ -647,6 +587,8 @@ function initContactFormWithAPI() {
         console.log('⚠️ No contact form found');
         return;
     }
+    
+    initEmailValidation();
     
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -698,6 +640,16 @@ function initContactFormWithAPI() {
     });
     
     console.log('✅ Contact form connected to Python backend');
+}
+
+// Used when there's no backend (for example on GitHub Pages). Nothing could send
+// the message, so hide the form instead of showing a fake "message received".
+function hideContactForm() {
+    const form = document.querySelector('form');
+    if (form) {
+        form.style.display = 'none';
+        console.log('ℹ️ Contact form hidden: no backend to send messages');
+    }
 }
 
 
@@ -785,38 +737,27 @@ async function initializeWithAPI() {
     const isHealthy = await checkAPIHealth();
     
     if (isHealthy) {
-        // Load skills from Python backend
-        await loadSkillsFromAPI();
-        
-        // Connect contact form to backend
+        // Connect contact form to backend first, so it's ready while skills load
         initContactFormWithAPI();
+        
+        // Load skills from Python backend, or animate the built-in values if that fails
+        const skills = await loadSkillsFromAPI();
+        if (!skills) {
+            initProgressBars();
+        }
         
         // Load analytics
         await loadProgressAnalytics();
         
         console.log('🚀 Frontend connected to Python backend!');
     } else {
-        // Use client-side only functionality
+        // No backend here (for example on GitHub Pages), so the form couldn't send
+        // anything. Hide it; the email link under it still works.
         console.log('📴 Running in offline mode (no backend)');
-        initContactForm(); // Use original client-side form
+        hideContactForm();
         initProgressBars(); // Use original animation
     }
 }
-
-// Update DOMContentLoaded to use API initialization
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('✅ Portfolio JavaScript loaded');
-    
-    // Initialize all features
-    initSmoothScrolling();
-    initSkillsAnimation();
-    initProjectHoverEffects();
-    initScrollToTop();
-    
-    // Try to connect to Python backend
-    initializeWithAPI();
-});
-
 
 // Contact form submission
 const contactForm = document.getElementById('contact-form');

@@ -1,30 +1,54 @@
 name: Deploy Portfolio
 
-# Run on push to main branch
+# Publishes only the frontend folder to GitHub Pages.
+# Needs Settings > Pages > Source set to "GitHub Actions".
 on:
+  # Run on push to main branch
   push:
     branches: [ main ]
+  # Lets you run it by hand from the Actions tab
+  workflow_dispatch:
+
+# Lets the workflow's token publish to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time; a running deployment is allowed to finish
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
     # Step 1: Get the code
     - name: Checkout code
-      uses: actions/checkout@v4
-    
+      uses: actions/checkout@v7
+
     # Step 2: Validate HTML (optional)
     - name: Validate HTML
       run: |
         echo "✅ Checking HTML structure..."
         # Add HTML validation here if desired
-    
-    # Step 3: Deploy to GitHub Pages
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/main'
+
+    # Step 3: Set up GitHub Pages
+    - name: Set up Pages
+      uses: actions/configure-pages@v6
+
+    # Step 4: Package only the frontend folder, so backend code isn't published
+    - name: Upload frontend
+      uses: actions/upload-pages-artifact@v5
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./
-        
+        path: ./frontend
+
+    # Step 5: Publish to GitHub Pages
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v5
