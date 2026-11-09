@@ -126,7 +126,9 @@ header {
     background-color: var(--primary-dark);
     color: white;
     padding: 1rem 0;
-    position: fixed;
+    /* Sticky keeps the header at the top while scrolling, but it still takes up
+       its own space, so the page below never slides under it */
+    position: sticky;
     top: 0;
     width: 100%;
     z-index: 1000;
@@ -175,10 +177,6 @@ nav a:hover {
 /* ===================================
    4. MAIN CONTENT
    =================================== */
-
-main {
-    margin-top: 80px; /* Account for fixed header */
-}
 
 section {
     padding: var(--spacing-lg) var(--spacing-sm);
@@ -608,9 +606,10 @@ footer small {
         gap: 10px;
     }
     
-    /* Adjust main margin for taller mobile header */
-    main {
-        margin-top: 140px;
+    /* The stacked menu is tall on phones, so let it scroll away with the page
+       instead of staying on screen */
+    header {
+        position: static;
     }
     
     /* Smaller hero */
@@ -658,11 +657,6 @@ footer small {
     nav a {
         display: block;
         text-align: center;
-    }
-    
-    /* Further increase main margin */
-    main {
-        margin-top: 200px;
     }
 }
 
